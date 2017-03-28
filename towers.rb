@@ -50,7 +50,13 @@ class TowerOfHanoi
   end
 
   def execute_move(start_position, end_position)
-    # Execute move
+    duplicate_board = @board[end_position].dup
+    duplicate_board.unshift(@board[start_position][0])
+
+    duplicate_board = @board[end_position]
+    @board[start_position].shift
+
+    puts "You win!" if won?
   end
 
   def valid?(start_position, end_position)
