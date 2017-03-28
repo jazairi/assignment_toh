@@ -1,3 +1,5 @@
+require 'pry'
+
 class TowerOfHanoi
 
   def initialize(towers=3)
@@ -6,17 +8,17 @@ class TowerOfHanoi
 
   def set_up
     # Set up board as 2D array
-    @board = Array.new(towers, [])
-    @board[0] = (1..towers).to_a
+    @board = Array.new(@towers, [])
+    @board[0] = (1..@towers).to_a
   end
 
   def play
     # Display instructions
     puts "Welcome to Tower of Hanoi!\n
     Instructions:\n
-    Enter in numeric form where you'd like to move.\n
-    Left position is 1, middle position is 2, right position is 3.\n
-    Enter 'q' to quit."
+    Enter in numeric form where you'd like to move.
+    Left position is 1, middle position is 2, right position is 3.
+    Enter 'q' to quit.\n\n"
 
     # Set up board, then prompt for move
     set_up
@@ -25,6 +27,18 @@ class TowerOfHanoi
 
   def render
     # Display current board
+    render = Array.new(@towers)
+
+    @board.each_with_index do |tower, i|
+      render[i] = [" "] * (@towers - tower.length) + tower
+    end
+
+    render.transpose.each do |row|
+      puts " " + row.join("    ")
+    end
+
+    puts "---  " * @towers
+    puts " #{(1..@towers).to_a.join("    ")}\n"
   end
 
   def get_move
@@ -45,7 +59,6 @@ class TowerOfHanoi
       execute_move
     else
       puts "Invalid move!"
-      retry
     end
   end
 
@@ -61,7 +74,7 @@ class TowerOfHanoi
 
   def valid?(start_position, end_position)
     # Invalid moves
-    return false if ( (!start_position.between?(0, @towers) && !end_position.between?(0, @towers)) || (start_position == end_position) || @board[start_position][0].nil? || (@board[start_position][0] > @board[end_position][0]) )
+    return false if ( (!start_position.between?(0, @towers.to_i) && !end_position.between?(0, @towers.to_i)) || (start_position == end_position) || @board[start_position][0].nil? || (@board[start_position][0] > @board[end_position][0]) )
 
     # Otherwise, return true
     return true
@@ -72,3 +85,5 @@ class TowerOfHanoi
   end
 
 end
+
+binding.pry
