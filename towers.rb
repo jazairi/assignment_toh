@@ -3,7 +3,7 @@ require 'pry'
 class TowerOfHanoi
 
   def initialize(towers=3)
-    @towers = towers
+    @towers = towers.to_i
   end
 
   def set_up
@@ -47,18 +47,19 @@ class TowerOfHanoi
     puts "Move from: "
     start_position = gets.chomp
     exit if start_position.downcase == 'q'
-    start_position.to_i
+    start_position = start_position.to_i
 
     puts "Move to: "
     end_position = gets.chomp
     exit if end_position.downcase == 'q'
-    end_position.to_i
+    end_position = end_position.to_i
 
     # Play move if valid, otherwise get new move
     if valid?(start_position, end_position)
-      execute_move
+      execute_move(start_position, end_position)
     else
       puts "Invalid move!"
+      get_move
     end
   end
 
@@ -69,15 +70,20 @@ class TowerOfHanoi
     duplicate_board = @board[end_position]
     @board[start_position].shift
 
-    puts "You win!" if won?
+    if won?
+      puts "You win!"
+    else
+      get_move
+    end
   end
 
   def valid?(start_position, end_position)
     # Invalid moves
-    return false if ( (!start_position.between?(0, @towers.to_i) && !end_position.between?(0, @towers.to_i)) || (start_position == end_position) || @board[start_position][0].nil? || (@board[start_position][0] > @board[end_position][0]) )
-
-    # Otherwise, return true
-    return true
+    if ( !start_position.between?(0, @towers) || !end_position.between?(0, @towers) || start_position == end_position || start_position > end_position )
+      return false
+    else
+      return true
+    end
   end
 
   def won?
