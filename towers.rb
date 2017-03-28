@@ -1,5 +1,3 @@
-require 'pry'
-
 class TowerOfHanoi
 
   def initialize(towers=3)
@@ -66,8 +64,7 @@ class TowerOfHanoi
   def execute_move(start_position, end_position)
     duplicate_board = @board[end_position].dup
     duplicate_board.unshift(@board[start_position][0])
-
-    duplicate_board = @board[end_position]
+    @board[end_position] = duplicate_board
     @board[start_position].shift
 
     if won?
@@ -79,7 +76,7 @@ class TowerOfHanoi
 
   def valid?(start_position, end_position)
     # Invalid moves
-    if ( !start_position.between?(0, @towers) || !end_position.between?(0, @towers) || start_position == end_position || start_position > end_position )
+    if ( !start_position.between?(0, @towers) || !end_position.between?(0, @towers) || start_position == end_position || start_position > end_position || @board[start_position][0].nil? )
       return false
     else
       return true
@@ -91,5 +88,3 @@ class TowerOfHanoi
   end
 
 end
-
-binding.pry
