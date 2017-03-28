@@ -24,7 +24,7 @@ class TowerOfHanoi
   end
 
   def render
-    # Display current board state
+    # Display current board
   end
 
   def get_move
@@ -54,7 +54,11 @@ class TowerOfHanoi
   end
 
   def valid?(start_position, end_position)
-    # Validate move
+    # Invalid moves
+    return false if ( (!start_position.between?(0, @towers) && !end_position.between?(0, @towers)) || (start_position == end_position) || @board[start_position][0].nil? || (@board[start_position][0] > @board[end_position][0]) )
+
+    # Otherwise, return true
+    return true
   end
 
   def won?
