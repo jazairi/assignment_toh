@@ -12,8 +12,9 @@ class TowerOfHanoi
   def play
     puts "Welcome to Tower of Hanoi!\n
     Instructions:\n
-    Enter where you'd like to move from and to\n
-    in the format '1,3'. Enter 'q' to quit."
+    Enter in numeric form where you'd like to move.\n
+    Left position is 1, middle position is 2, right position is 3.\n
+    Enter 'q' to quit."
 
     set_up
     move
@@ -29,7 +30,7 @@ class TowerOfHanoi
     # Prompt user for move
   end
 
-  def execute_move
+  def execute_move(start, end)
     # Execute move
   end
 
