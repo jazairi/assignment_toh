@@ -38,7 +38,7 @@ class TowerOfHanoi
   end
 
   def won?
-    # Victory conditions
+    return true if @board.last == @board.last.sort && @board.last.length == @towers
   end
 
 end
